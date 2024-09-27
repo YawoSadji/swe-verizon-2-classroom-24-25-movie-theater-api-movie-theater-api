@@ -51,7 +51,7 @@ Create the route handlers for the project, per these definitions:
 - `GET` all users
 - `GET` one user
 - `GET` all shows watched by a user (user id in `req.params`)
-- `PUT` associate a user with a show they have watched
+- `PUT` associate a user with a show they have watched******************
 
 **Shows**
 
