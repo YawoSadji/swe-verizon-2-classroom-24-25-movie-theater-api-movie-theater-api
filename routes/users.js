@@ -33,5 +33,19 @@ usersRouter.put('/:id/shows/:showId', async(req,res)=>{
 });
 
 
+usersRouter.post('/', [
+    check('username').isEmail().withMessage('Username must be a valid email')
+], async(req,res)=>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        ////setting statuscode to 400 
+        //if not it returns a 200 here.
+        res.status(400).json({error: errors.array()});
+    }else{
+    await User.create(req.body);
+    const allUsers = await User.findAll();
+    res.json(allUsers);
+    }
+});
 
 module.exports = usersRouter;

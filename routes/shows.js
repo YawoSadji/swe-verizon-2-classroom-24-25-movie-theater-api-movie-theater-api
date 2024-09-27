@@ -46,13 +46,28 @@ showsRouter.delete('/:id', async (req,res)=>{
 });
 
 
-showsRouter.get('/genre', async(req,res)=>{
+showsRouter.get('/', async(req,res)=>{
     const genreNeeded = req.query.genre;
-    if(!genre){
+    if(!genreNeeded){
         return res.status(400).json({message: 'Genre is required'});
     }
-    const foundShows = await Show.findAll({where:{genre: genreNeeded}}); 
+    const foundShows = await Show.findAll({where: {genre: genreNeeded}}); 
     res.json(foundShows);
+});
+
+showsRouter.post('/', [
+    check('title').isLength({max:25}).withMessage('Title must be 25 characters or less')
+], async(req,res)=>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        ////setting statuscode to 400 
+        //if not it returns a 200 here.
+        res.status(400).json({error: errors.array()});
+    }else{
+    await Show.create(req.body);
+    const allShows = await Show.findAll();
+    res.json(allShows);
+    }
 });
 
 module.exports = showsRouter;
