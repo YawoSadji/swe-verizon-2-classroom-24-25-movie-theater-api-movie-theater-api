@@ -47,11 +47,12 @@ showsRouter.delete('/:id', async (req,res)=>{
 
 
 showsRouter.get('/', async(req,res)=>{
-    const genreNeeded = req.query.genre;
-    if(!genreNeeded){
-        return res.status(400).json({message: 'Genre is required'});
-    }
-    const foundShows = await Show.findAll({where: {genre: genreNeeded}}); 
+    const {genre} = req.query;
+    console.log('Genre:', genre);
+    // if(!genre){
+    //     return res.status(400).json({message: 'Genre is required'});
+    // }
+    const foundShows = await Show.findAll({where:{genre}}); 
     res.json(foundShows);
 });
 
