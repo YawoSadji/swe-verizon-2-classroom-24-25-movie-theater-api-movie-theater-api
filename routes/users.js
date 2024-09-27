@@ -25,14 +25,11 @@ usersRouter.get('/:id/shows', async(req,res)=>{
 usersRouter.put('/:id/shows/:showId', async(req,res)=>{
     const id = req.params.id;
     const showId = req.params.showId;
-    // const foundUser = await User.findByPk(id);
-    const show = await Show.findByPk(showId);
-    // await User.addShow(show);
-    // const updatedUser = await User.findByPk(id, {include: Show});
-    // res.json(updatedUser);
     const foundUser = await User.findByPk(id);
-    const shows = await foundUser.getShows();
-    res.json(shows);
+    const show = await Show.findByPk(showId);
+    await foundUser.addShow(show);
+    const updatedUser = await User.findByPk(id, {include: Show});
+    res.json(updatedUser);
 });
 
 
