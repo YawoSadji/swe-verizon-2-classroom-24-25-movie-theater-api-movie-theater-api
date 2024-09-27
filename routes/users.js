@@ -15,14 +15,14 @@ usersRouter.get('/:id', async(req,res)=>{
     res.json(foundUser);
 });
 
-usersRouter.get('/:id/watched', async(req,res)=>{
+usersRouter.get('/:id/shows', async(req,res)=>{
     const id = req.params.id;
     const foundUser = await User.findByPk(id);
     const shows = await foundUser.getShows();
     res.json(shows);
 });
 
-usersRouter.put('/:id/watched/:showId', async(req,res)=>{
+usersRouter.put('/:id/shows/:showId', async(req,res)=>{
     const id = req.params.id;
     const showId = req.params.showId;
     // const foundUser = await User.findByPk(id);
