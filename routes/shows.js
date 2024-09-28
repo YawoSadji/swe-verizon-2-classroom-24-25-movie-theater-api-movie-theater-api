@@ -4,6 +4,22 @@ const {Show, User} = require("../models/index");
 const {check, validationResult} = require('express-validator'); 
 
 
+showsRouter.get('/', async(req,res)=>{
+    const {genre} = req.query;
+    try{
+    const whereClause = genre ? {genre}:{}
+    const foundShows = await Show.findAll({where: whereClause}); 
+    res.json(foundShows);
+    }
+    catch(err){
+    
+        console.error(err);
+        return res.status(400).json({message: 'Genre is required'});
+    
+    }
+});
+// found out that order of routes matter in Express... lol commenting for my future self.
+
 showsRouter.get('/', async (req,res)=>{
     const allShows = await Show.findAll();
     res.json(allShows);
@@ -43,17 +59,6 @@ showsRouter.delete('/:id', async (req,res)=>{
     await foundShow.destroy();
     const allShows = await Show.findAll();
     res.json(allShows);
-});
-
-
-showsRouter.get('/', async(req,res)=>{
-    const {genre} = req.query;
-    console.log('Genre:', genre);
-    // if(!genre){
-    //     return res.status(400).json({message: 'Genre is required'});
-    // }
-    const foundShows = await Show.findAll({where:{genre}}); 
-    res.json(foundShows);
 });
 
 showsRouter.post('/', [
