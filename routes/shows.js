@@ -5,6 +5,10 @@ const {check, validationResult} = require('express-validator');
 
 
 showsRouter.get('/', async(req,res)=>{
+    //This route returns all shows if no genre is specified
+    //but if a genre is specified in the request it returns movies of that genre
+    //so no need for a dedicated all shows get route.
+    //reason why i commented out the next route lol.  
     const {genre} = req.query;
     try{
     const whereClause = genre ? {genre}:{}
@@ -20,10 +24,10 @@ showsRouter.get('/', async(req,res)=>{
 });
 // found out that order of routes matter in Express... lol commenting for my future self.
 
-showsRouter.get('/', async (req,res)=>{
-    const allShows = await Show.findAll();
-    res.json(allShows);
-});
+// showsRouter.get('/', async (req,res)=>{
+//     const allShows = await Show.findAll();
+//     res.json(allShows);
+// });
 
 showsRouter.get('/:id', async (req,res)=>{
     const id = req.params.id;
