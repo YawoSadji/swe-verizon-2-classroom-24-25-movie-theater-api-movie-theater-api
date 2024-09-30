@@ -1,7 +1,7 @@
 ![logo](https://user-images.githubusercontent.com/44912347/202296600-c5f247d6-9616-49db-88f0-38433429d781.jpg)
 
 # Movie Theater API
-
+echo \"Error: no test specified\" && exit 1
 **TASK**: You are a Software Engineer for a movie theater company, and your team
 is tasked with creating an API that can work with and serve data on our database
 through an application server. We will be testing our API endpoints using
@@ -55,12 +55,12 @@ Create the route handlers for the project, per these definitions:
 
 **Shows**
 
-- `GET` all shows
-- `GET` one show
-- `GET` all users who watched a show
+- `GET` all shows...
+- `GET` one show...
+- `GET` all users who watched a show...
 - `PUT` update the `available` property of a show
-- `DELETE` a show
-- `GET` shows of a particular genre (genre in `req.query`)
+- `DELETE` a show...
+- `GET` shows of a particular genre (genre in `req.query`)...
 
 **Make sure to include your routers in a directory named `routes`**
 

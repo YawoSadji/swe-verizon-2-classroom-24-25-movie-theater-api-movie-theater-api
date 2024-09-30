@@ -4,11 +4,12 @@ const {Show, User} = require("../models/index");
 const {check, validationResult} = require('express-validator'); 
 
 
-showsRouter.get('/', async(req,res)=>{
-    //This route returns all shows if no genre is specified
-    //but if a genre is specified in the request it returns movies of that genre
-    //so no need for a dedicated all shows get route.
-    //reason why i commented out the next route lol.  
+//This route returns all shows if no genre is specified
+//but if a genre is specified in the request it returns movies of that genre
+//so no need for a dedicated all shows get route.
+//reason why i commented out the next route lol.
+
+showsRouter.get('/', async(req,res)=>{  
     const {genre} = req.query;
     try{
     const whereClause = genre ? {genre}:{}
@@ -29,12 +30,15 @@ showsRouter.get('/', async(req,res)=>{
 //     res.json(allShows);
 // });
 
+
+//Get one show
 showsRouter.get('/:id', async (req,res)=>{
     const id = req.params.id;
     const foundShow = await Show.findByPk(id);
     res.json(foundShow);
 });
 
+//Get all users who watched a show
 showsRouter.get('/:id/users', async(req,res)=>{
     const id = req.params.id;
     const foundShow = await Show.findByPk(id);
@@ -42,6 +46,7 @@ showsRouter.get('/:id/users', async(req,res)=>{
     res.json(users);
 });
 
+//`PUT` update the `available` property of a show
 showsRouter.put('/:id/available', async(req,res)=>{
     const id = req.params.id;
     const foundShow = await Show.findByPk(id);
@@ -57,6 +62,7 @@ showsRouter.put('/:id/available', async(req,res)=>{
     res.json(allShows);
 });
 
+//`DELETE` a show
 showsRouter.delete('/:id', async (req,res)=>{
     const id = req.params.id;
     const foundShow = await Show.findByPk(id);
@@ -65,6 +71,7 @@ showsRouter.delete('/:id', async (req,res)=>{
     res.json(allShows);
 });
 
+//`POST` with server-validation : The title of a show must be a maximum of 25 characters
 showsRouter.post('/', [
     check('title').isLength({max:25}).withMessage('Title must be 25 characters or less')
 ], async(req,res)=>{
